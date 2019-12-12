@@ -33,11 +33,8 @@ d3.csv("data/data.csv").then(function(healthData){
         console.log(data);
         // grab the necessary variables for the plot,
         //make sure poverty and healthcare variables are integers
-        var poverty = data.poverty = + data.poverty;
-        var healthCare = data.healthcare = + data.healthcare
-
-        console.log(poverty);
-        console.log(healthCare)
+        data.poverty = + data.poverty;
+        data.healthcare = + data.healthcare
     });
     
     // create x and y scales for the plot
@@ -68,22 +65,29 @@ d3.csv("data/data.csv").then(function(healthData){
         .append("circle")
         .attr("cx", d => xScale(d.poverty))
         .attr("cy", d=> yScale(d.healthcare))
-        .attr("r", 20)
+        .attr("r", 16)
         .attr("fill", "lightblue")
         
     // add the text to the circles
-    chartGroup.selectAll("text")
-        .data(healthData)
+    var textSelection = chartGroup.selectAll('.text')
+    console.log(textSelection)
+
+        textSelection.data(healthData)
         .enter()
         .append("text")
+        .classed('text', true)
         .attr("x", d => xScale(d.poverty))
         .attr("y", d => yScale(d.healthcare))
-        .text(d => d.abbr)
+        .attr("transform", `translate(-10, 6)`)
+        .text(d => {
+            return d.abbr
+        })
         .style("fill", "white" )
+
 
     // create label group for lx and y abels    
     var labelsGroup = chartGroup.append("g")
-        .attr("transform", `translate(${width / 2}, ${height + 20})`);
+        .attr("transform", `translate(${width / 2}, ${height + 20 })`);
 
     // create x label variable
     var xLabel = labelsGroup.append("text")
@@ -103,12 +107,33 @@ d3.csv("data/data.csv").then(function(healthData){
         .style("font-weight", "bold")
 
 
-    // add tooltips
+
+    
+    
     
 
+    // // add tooltips
+    // var toolTip = d3.select("body").append("div")
+    //     .attr("class", "d3-tip")
+    
 
-
-
+//     circlesGroup.on("mouseover", function(data) {
+//         toolTip.style("display", "block")
+//         toolTip.html(function(d) {
+//             return (`${d.state}<br>${d.pobverty}<br>${d.healthcare}`);
+//           })
+//         .style("left", d3.event.pageX + "px")
+//         .style("top", d3.event.pageY + "px");
+// ;
+//     })
+//         // // onmouseout event
+//         // .on("mouseout", function(data, index) {
+//         // toolTip.hide(data);
+//         // });
+    
+//     return circlesGroup;
+        
+    
 
 
 
