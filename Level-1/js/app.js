@@ -1,5 +1,5 @@
 // create svgHeight and svgWidth variables 
-var svgWidth = 1000;
+var svgWidth = 960;
 var svgHeight = 600;
 
 // create the margin variable
@@ -7,7 +7,7 @@ var margin = {
   top: 20,
   right: 40,
   bottom: 80,
-  left: 80
+  left: 50
 };
 
 // create width and height variable 
@@ -63,6 +63,7 @@ d3.csv("data/data.csv").then(function(healthData){
         .data(healthData)
         .enter()
         .append("circle")
+        .classed("circle", true)
         .attr("cx", d => xScale(d.poverty))
         .attr("cy", d=> yScale(d.healthcare))
         .attr("r", 16)
@@ -85,7 +86,7 @@ d3.csv("data/data.csv").then(function(healthData){
         .style("fill", "white" )
 
 
-    // create label group for lx and y abels    
+    // create a label group for x and y abels    
     var labelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${width / 2}, ${height + 20 })`);
 
@@ -105,38 +106,5 @@ d3.csv("data/data.csv").then(function(healthData){
         .attr("dy", "1em")
         .text("Locks Healthcare (%)")
         .style("font-weight", "bold")
-
-
-
-    
-    
-    
-
-    // // add tooltips
-    // var toolTip = d3.select("body").append("div")
-    //     .attr("class", "d3-tip")
-    
-
-//     circlesGroup.on("mouseover", function(data) {
-//         toolTip.style("display", "block")
-//         toolTip.html(function(d) {
-//             return (`${d.state}<br>${d.pobverty}<br>${d.healthcare}`);
-//           })
-//         .style("left", d3.event.pageX + "px")
-//         .style("top", d3.event.pageY + "px");
-// ;
-//     })
-//         // // onmouseout event
-//         // .on("mouseout", function(data, index) {
-//         // toolTip.hide(data);
-//         // });
-    
-//     return circlesGroup;
-        
-    
-
-
-
-
-  })
+});
 
